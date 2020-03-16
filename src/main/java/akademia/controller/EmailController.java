@@ -24,8 +24,14 @@ public class EmailController {
     return "index";
   }
 
+  @GetMapping("/sender")
+  public String sender() {
+    return "sender";
+  }
+
   @PostMapping("/send")
   public String sendMail(@ModelAttribute MyEmail myEmail) {
+    System.out.println(myEmail);
     Context context = new Context();
     context.setVariable("body", myEmail.getBody());
     String templateMail = templateEngine.process("template-email", context);
@@ -33,8 +39,4 @@ public class EmailController {
     return "index";
   }
 
-  @GetMapping("/sender")
-  public String sender() {
-    return "sender";
-  }
 }

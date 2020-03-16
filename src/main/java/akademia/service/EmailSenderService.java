@@ -28,6 +28,7 @@ public class EmailSenderService implements EmailSender {
       MimeMessageHelper helper = new MimeMessageHelper(mail, true);
       helper.setTo(address);
       helper.setFrom(from);
+      helper.setReplyTo(from);
       helper.setSubject(subject);
       helper.setText(body, true);
     } catch (MessagingException e) {

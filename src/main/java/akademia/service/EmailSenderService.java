@@ -1,10 +1,38 @@
 package akademia.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 @Service
-public class EmailSenderService {
+public class EmailSenderService implements EmailSender {
 
+  private JavaMailSender javaMailSender;
 
+  @Value("${mail.from}")
+  private String from;
 
+  public EmailSenderService(JavaMailSender javaMailSender) {
+    this.javaMailSender = javaMailSender;
+  }
+
+  @Override
+  public void sendEmail(String address, String subject, String body) {
+    MimeMessage mail = javaMailSender.createMimeMessage();
+
+    try {
+      MimeMessageHelper helper = new MimeMessageHelper(mail, true);
+      helper.setTo(address);
+      helper.setFrom(from);
+      helper.setSubject(subject);
+      helper.setText(body, true);
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
+    javaMailSender.send(mail);
+  }
 }

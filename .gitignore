@@ -10,4 +10,4 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
-/src/main/resources/config.properties
+src/main/resources/config.properties

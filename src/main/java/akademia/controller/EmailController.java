@@ -28,7 +28,7 @@ public class EmailController {
   public String sendMail(@ModelAttribute MyEmail myEmail) {
     Context context = new Context();
     context.setVariable("body", myEmail.getBody());
-    String templateMail = templateEngine.process("template-mail", context);
+    String templateMail = templateEngine.process("template-email", context);
     emailSender.sendEmail(myEmail.getAddress(), myEmail.getSubject(), templateMail);
     return "index";
   }

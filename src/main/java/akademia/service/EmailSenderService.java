@@ -31,9 +31,9 @@ public class EmailSenderService implements EmailSender {
       helper.setReplyTo(from);
       helper.setSubject(subject);
       helper.setText(body, true);
+      javaMailSender.send(helper.getMimeMessage());
     } catch (MessagingException e) {
       e.printStackTrace();
     }
-    javaMailSender.send(mail);
   }
 }
